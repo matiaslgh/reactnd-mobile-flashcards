@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { FlatList } from 'react-native'
+import { FlatList, View } from 'react-native'
+import ActionButton from 'react-native-action-button'
 import Deck from './Deck'
 
 class DeckList extends Component {
@@ -38,10 +39,16 @@ class DeckList extends Component {
       cardsCount: this.state.decks[key].questions.length
     }))
     return (
-      <FlatList
-        data={decks}
-        renderItem={({item}) => <Deck title={item.title} cardsCount={item.cardsCount} />}
-      />
+      <View style={{flex:1}}>
+        <FlatList
+          data={decks}
+          renderItem={({item}) => <Deck title={item.title} cardsCount={item.cardsCount} />}
+        />
+        <ActionButton
+          buttonColor="#3f51b5"
+          onPress={() => { console.log("hi")}}
+        />
+      </View>
     )
   }
 }
