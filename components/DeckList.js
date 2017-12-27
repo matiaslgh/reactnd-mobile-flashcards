@@ -1,56 +1,44 @@
 import React, { Component } from 'react'
-import { FlatList, View } from 'react-native'
+import { connect } from 'react-redux'
+import { getAllDecks } from '../actions/decksAction'
+import { FlatList, View, Text, Button } from 'react-native'
 import ActionButton from 'react-native-action-button'
 import Deck from './Deck'
+import EmptyDeckList from './EmptyDeckList'
 
 class DeckList extends Component {
 
-  state = {
-    decks: {
-      React: {
-        title: 'React',
-        questions: [
-          {
-            question: 'What is React?',
-            answer: 'A library for managing user interfaces'
-          },
-          {
-            question: 'Where do you make Ajax requests in React?',
-            answer: 'The componentDidMount lifecycle event'
-          }
-        ]
-      },
-      JavaScript: {
-        title: 'JavaScript',
-        questions: [
-          {
-            question: 'What is a closure?',
-            answer: 'The combination of a function and the lexical environment within which that function was declared.'
-          }
-        ]
-      }
-    }
+  componentDidMount() {
+    !this.props.allDecks.length && this.props.getAllDecks()
   }
 
   render() {
-    const decks = Object.keys(this.state.decks).map(key => ({
-      key,
-      title: this.state.decks[key].title,
-      cardsCount: this.state.decks[key].questions.length
-    }))
+    const { allDecks, navigation } = this.props
+    if (!allDecks.length) {
+      return ( <EmptyDeckList navigation={navigation} /> )
+    }
     return (
       <View style={{flex:1}}>
         <FlatList
-          data={decks}
+          data={allDecks}
+          keyExtractor={(item, index) => index}
           renderItem={({item}) => <Deck title={item.title} cardsCount={item.cardsCount} />}
         />
         <ActionButton
           buttonColor="#3f51b5"
-          onPress={() => { console.log("hi")}}
+          onPress={ () => navigation.navigate('CreateDeck') }
         />
       </View>
     )
   }
 }
 
-export default DeckList
+const mapStateToProps = ({ allDecks }) => ({
+  allDecks
+})
+
+const mapDispatchToProps = dispatch => ({
+  getAllDecks: () => dispatch(getAllDecks())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)

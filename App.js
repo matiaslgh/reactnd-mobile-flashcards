@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import reducer from './reducers'
 import { View } from 'react-native'
-import DeckList from './components/DeckList'
+import RootNavigator from './navigator'
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
-      <View style={{flex:1}}>
-        <DeckList />
-      </View>
+      <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+        <View style={{flex:1}}>
+          <RootNavigator />
+        </View>
+      </Provider>
     )
   }
 }
