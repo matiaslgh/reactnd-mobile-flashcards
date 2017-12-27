@@ -15,3 +15,6 @@ export const fetchAllDecks = () =>
 
 export const addDeck = deck =>
   AsyncStorage.setItem(deck.title, JSON.stringify(deck))
+
+export const fetchDeck = key =>
+  AsyncStorage.getItem(key).then(deck => JSON.parse(deck))

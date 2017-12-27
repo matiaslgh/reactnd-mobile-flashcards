@@ -1,5 +1,5 @@
 import * as types from './types'
-import { fetchAllDecks, addDeck } from '../utils/api'
+import { fetchAllDecks, addDeck, fetchDeck } from '../utils/api'
 
 export const getAllDecks = () => dispatch =>
   fetchAllDecks().then(decks => dispatch({
@@ -14,3 +14,9 @@ export const createDeck = deck => {
     deck
   }
 }
+
+export const changeDeck = key => dispatch =>
+  fetchDeck(key).then(deck => dispatch({
+    type: types.CHANGE_DECK,
+    deck
+  }))

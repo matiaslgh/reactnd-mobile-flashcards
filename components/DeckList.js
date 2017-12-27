@@ -1,15 +1,29 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getAllDecks } from '../actions/decksAction'
-import { FlatList, View, Text, Button } from 'react-native'
+import { getAllDecks, changeDeck } from '../actions/decksAction'
+import PropTypes from 'prop-types'
+import { FlatList, View, Text, Button, TouchableOpacity } from 'react-native'
 import ActionButton from 'react-native-action-button'
 import Deck from './Deck'
 import EmptyDeckList from './EmptyDeckList'
 
 class DeckList extends Component {
 
+  static propTypes = {
+    navigation: PropTypes.object.isRequired,
+    allDecks: PropTypes.array.isRequired,
+    getAllDecks: PropTypes.func.isRequired,
+    changeDeck: PropTypes.func.isRequired
+  }
+
   componentDidMount() {
     !this.props.allDecks.length && this.props.getAllDecks()
+  }
+
+  handleOnPress = title => {
+    const { navigation, changeDeck } = this.props
+    changeDeck(title)
+    navigation.navigate('IndividualDeck')
   }
 
   render() {
@@ -22,7 +36,11 @@ class DeckList extends Component {
         <FlatList
           data={allDecks}
           keyExtractor={(item, index) => index}
-          renderItem={({item}) => <Deck title={item.title} cardsCount={item.cardsCount} />}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => this.handleOnPress(item.title)}>
+              <Deck title={item.title} cardsCount={item.cardsCount} />
+            </TouchableOpacity>
+          )}
         />
         <ActionButton
           buttonColor="#3f51b5"
@@ -38,7 +56,8 @@ const mapStateToProps = ({ allDecks }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getAllDecks: () => dispatch(getAllDecks())
+  getAllDecks: () => dispatch(getAllDecks()),
+  changeDeck: title => dispatch(changeDeck(title))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
