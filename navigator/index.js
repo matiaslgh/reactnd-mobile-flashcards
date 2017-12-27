@@ -3,6 +3,7 @@ import Expo from 'expo'
 import DeckList from '../components/DeckList'
 import CreateDeck from '../components/CreateDeck'
 import IndividualDeck from '../components/IndividualDeck'
+import AddCard from '../components/AddCard'
 
 const RootNavigator =  StackNavigator({
   DeckList: {
@@ -29,6 +30,16 @@ const RootNavigator =  StackNavigator({
   },
   IndividualDeck: {
     screen: IndividualDeck,
+    navigationOptions: {
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: "#3f51b5",
+        marginTop: Expo.Constants.statusBarHeight
+      }
+    }
+  },
+  AddCard: {
+    screen: AddCard,
     navigationOptions: {
       headerTintColor: "white",
       headerStyle: {

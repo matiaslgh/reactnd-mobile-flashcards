@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 
-export const fetchAllDecks = () =>
+const fetchAllDecks = () =>
   AsyncStorage.getAllKeys().then( keys =>
     AsyncStorage.multiGet(keys).then( stores =>
       stores.map( mapDeck => {
@@ -13,8 +13,24 @@ export const fetchAllDecks = () =>
     )
   )
 
-export const addDeck = deck =>
+const addDeck = deck =>
   AsyncStorage.setItem(deck.title, JSON.stringify(deck))
 
-export const fetchDeck = key =>
+const fetchDeck = key =>
   AsyncStorage.getItem(key).then(deck => JSON.parse(deck))
+
+const addCard = (title, card) =>
+  AsyncStorage.getItem(title).then(result => {
+    const deck = JSON.parse(result)
+    deck.questions.push(card)
+    AsyncStorage.mergeItem(title, JSON.stringify({
+      questions: deck.questions
+    }))
+  })
+
+export default {
+  fetchAllDecks,
+  addDeck,
+  fetchDeck,
+  addCard
+}

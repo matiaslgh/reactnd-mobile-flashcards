@@ -28,6 +28,19 @@ export default (state = initial, action) => {
         ...state,
         currentDeck: action.deck
       }
+    case types.ADD_CARD:
+      return {
+        ...state,
+        currentDeck: {
+          ...state.currentDeck,
+          questions: [...state.currentDeck.questions, action.card]
+        },
+        allDecks: state.allDecks.map(deck =>
+          deck.title !== action.title ?
+            deck :
+            {title: deck.title, cardsCount: deck.cardsCount + 1}
+        )
+      }
     default:
       return state
   }
