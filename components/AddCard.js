@@ -27,7 +27,6 @@ class AddCard extends Component {
 
   validate = (input, element) => {
     const empty = input === ''
-    console.log(`Input: ${input} - ${empty}`)
     this.setState({
       [element]: input,
       [element + 'Empty']: empty

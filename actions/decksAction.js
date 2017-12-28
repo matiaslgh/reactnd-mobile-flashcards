@@ -29,3 +29,8 @@ export const addCard = (title, card) => {
     card
   }
 }
+
+export const changeCard = card => ({
+  type: types.CHANGE_CARD,
+  card
+})

@@ -1,9 +1,14 @@
 import * as types from '../actions/types'
 
 const initial = {
+  currentCard: {
+    count: 0,
+    question: '',
+    answer: ''
+  },
   currentDeck: {
     title: '',
-    questions: []
+    cards: []
   },
   allDecks: []
 }
@@ -33,13 +38,18 @@ export default (state = initial, action) => {
         ...state,
         currentDeck: {
           ...state.currentDeck,
-          questions: [...state.currentDeck.questions, action.card]
+          cards: [...state.currentDeck.cards, action.card]
         },
         allDecks: state.allDecks.map(deck =>
           deck.title !== action.title ?
             deck :
             {title: deck.title, cardsCount: deck.cardsCount + 1}
         )
+      }
+    case types.CHANGE_CARD:
+      return {
+        ...state,
+        currentCard: action.card
       }
     default:
       return state

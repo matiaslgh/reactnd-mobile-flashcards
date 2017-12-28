@@ -21,7 +21,7 @@ class CreateDeck extends Component {
     if (deckName !== '') {
       this.props.createDeck({
         title: deckName,
-        questions: []
+        cards: []
       })
       Keyboard.dismiss()
       this.props.navigation.goBack()

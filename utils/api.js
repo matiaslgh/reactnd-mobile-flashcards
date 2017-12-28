@@ -7,7 +7,7 @@ const fetchAllDecks = () =>
         const deck = JSON.parse(mapDeck[1])
         return {
           title: deck.title,
-          cardsCount: deck.questions.length
+          cardsCount: deck.cards.length
         }
       })
     )
@@ -22,9 +22,9 @@ const fetchDeck = key =>
 const addCard = (title, card) =>
   AsyncStorage.getItem(title).then(result => {
     const deck = JSON.parse(result)
-    deck.questions.push(card)
+    deck.cards.push(card)
     AsyncStorage.mergeItem(title, JSON.stringify({
-      questions: deck.questions
+      cards: deck.cards
     }))
   })
 
