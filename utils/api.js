@@ -1,15 +1,18 @@
 import { AsyncStorage } from 'react-native'
+import { NOTIFICATION_KEY } from './notification'
 
 const fetchAllDecks = () =>
   AsyncStorage.getAllKeys().then( keys =>
     AsyncStorage.multiGet(keys).then( stores =>
-      stores.map( mapDeck => {
-        const deck = JSON.parse(mapDeck[1])
-        return {
-          title: deck.title,
-          cardsCount: deck.cards.length
-        }
-      })
+      stores
+        .filter( data => data[0] !== NOTIFICATION_KEY)
+        .map( mapDeck => {
+          const deck = JSON.parse(mapDeck[1])
+          return {
+            title: deck.title,
+            cardsCount: deck.cards.length
+          }
+        })
     )
   )
 

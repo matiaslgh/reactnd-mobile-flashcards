@@ -4,6 +4,7 @@ import { changeCard, updateScore } from '../actions/decksAction'
 import PropTypes from 'prop-types'
 import { View, Text, Button, StyleSheet } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { clearLocalNotification, setLocalNotification } from '../utils/notification'
 
 const Answer = ({ question, answer, cards, count, score, changeCard, updateScore, navigation }) => {
 
@@ -39,6 +40,7 @@ const Answer = ({ question, answer, cards, count, score, changeCard, updateScore
       changeCard(cards[count])
       navigation.goBack()
     } else {
+      clearLocalNotification().then(setLocalNotification)
       resetNavStackAndGoToScoreView()
     }
   }
