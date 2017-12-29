@@ -33,7 +33,10 @@ const RootNavigator =  StackNavigator({
   },
   IndividualDeck: {
     screen: IndividualDeck,
-    navigationOptions
+    navigationOptions: {
+      ...navigationOptions,
+      title: "Individual Deck"
+    }
   },
   AddCard: {
     screen: AddCard,

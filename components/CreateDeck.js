@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createDeck } from '../actions/decksAction'
+import { createDeck, changeDeck } from '../actions/decksAction'
+import PropTypes from 'prop-types'
 import { FormInput, FormValidationMessage } from 'react-native-elements'
 import { Button, StyleSheet, KeyboardAvoidingView, Keyboard } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
 class CreateDeck extends Component {
+
+  static propTypes = {
+    createDeck: PropTypes.func.isRequired,
+    changeDeck: PropTypes.func.isRequired,
+    navigation: PropTypes.object.isRequired
+  }
 
   state = {
     deckName: '',
@@ -16,15 +24,26 @@ class CreateDeck extends Component {
     this.setState({ deckName, empty })
   }
 
+  resetNavStackAndGoToIndividualDeckView = () =>
+    this.props.navigation.dispatch(NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'DeckList' }),
+        NavigationActions.navigate({ routeName: 'IndividualDeck' }),
+      ]
+    }))
+
   submit = () => {
     const { deckName } = this.state
+    const { createDeck, changeDeck } = this.props
     if (deckName !== '') {
-      this.props.createDeck({
+      createDeck({
         title: deckName,
         cards: []
       })
       Keyboard.dismiss()
-      this.props.navigation.goBack()
+      changeDeck(deckName)
+      this.resetNavStackAndGoToIndividualDeckView()
     }
     return false
   }
@@ -56,7 +75,8 @@ const styles = StyleSheet.create({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createDeck: deck => dispatch(createDeck(deck))
+  createDeck: deck => dispatch(createDeck(deck)),
+  changeDeck: title => dispatch(changeDeck(title))
 })
 
 export default connect(()=>({}), mapDispatchToProps)(CreateDeck)
