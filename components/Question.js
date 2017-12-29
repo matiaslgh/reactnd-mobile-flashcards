@@ -21,9 +21,9 @@ Question.propTypes = {
   navigation: PropTypes.object.isRequired
 }
 
-const mapStateToProps = ({ currentCard, currentDeck }) => ({
+const mapStateToProps = ({ currentCard, currentDeck, score }) => ({
   question: currentCard.question,
-  count: currentCard.count,
+  count: score.incorrects + score.corrects + 1,
   total: currentDeck.cards.length
 })
 

@@ -34,3 +34,8 @@ export const changeCard = card => ({
   type: types.CHANGE_CARD,
   card
 })
+
+export const updateScore = score => ({
+  type: types.UPDATE_SCORE,
+  score
+})

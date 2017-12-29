@@ -1,8 +1,11 @@
 import * as types from '../actions/types'
 
 const initial = {
+  score: {
+    incorrects: 0,
+    corrects: 0
+  },
   currentCard: {
-    count: 0,
     question: '',
     answer: ''
   },
@@ -50,6 +53,11 @@ export default (state = initial, action) => {
       return {
         ...state,
         currentCard: action.card
+      }
+    case types.UPDATE_SCORE:
+      return {
+        ...state,
+        score: action.score
       }
     default:
       return state

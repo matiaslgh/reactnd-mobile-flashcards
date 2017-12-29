@@ -1,13 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { changeCard } from '../actions/decksAction'
+import { changeCard, updateScore } from '../actions/decksAction'
 import PropTypes from 'prop-types'
 import { View, Button } from 'react-native'
 import Deck from './Deck'
 
-const IndividualDeck = ({ navigation, title, cards, changeCard }) => {
+const IndividualDeck = ({ navigation, title, cards, changeCard, resetScore }) => {
   const startQuiz = () => {
     if (cards.length) {
+      resetScore()
       changeCard({
         ...cards[0],
         count: 1
@@ -39,7 +40,8 @@ IndividualDeck.propTypes = {
   navigation: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   cards: PropTypes.array.isRequired,
-  changeCard: PropTypes.func.isRequired
+  changeCard: PropTypes.func.isRequired,
+  resetScore: PropTypes.func.isRequired
 }
 
 const mapStateToProps = ({ currentDeck }) => ({
@@ -48,7 +50,11 @@ const mapStateToProps = ({ currentDeck }) => ({
 })
 
 mapDispatchToProps = dispatch => ({
-  changeCard: card => dispatch(changeCard(card))
+  changeCard: card => dispatch(changeCard(card)),
+  resetScore: () => dispatch(updateScore({
+    corrects: 0,
+    incorrects: 0
+  }))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IndividualDeck)

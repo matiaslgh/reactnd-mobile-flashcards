@@ -6,6 +6,7 @@ import IndividualDeck from '../components/IndividualDeck'
 import AddCard from '../components/AddCard'
 import Question from '../components/Question'
 import Answer from '../components/Answer'
+import Score from '../components/Score'
 
 const RootNavigator =  StackNavigator({
   DeckList: {
@@ -65,6 +66,17 @@ const RootNavigator =  StackNavigator({
     screen: Answer,
     navigationOptions: {
       title: "Answer",
+      headerTintColor: "white",
+      headerStyle: {
+        backgroundColor: "#3f51b5",
+        marginTop: Expo.Constants.statusBarHeight
+      }
+    }
+  },
+  Score: {
+    screen: Score,
+    navigationOptions: {
+      title: "Score",
       headerTintColor: "white",
       headerStyle: {
         backgroundColor: "#3f51b5",
