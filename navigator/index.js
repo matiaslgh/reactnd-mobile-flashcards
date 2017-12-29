@@ -8,80 +8,56 @@ import Question from '../components/Question'
 import Answer from '../components/Answer'
 import Score from '../components/Score'
 
+const navigationOptions = {
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor: "#3f51b5",
+    marginTop: Expo.Constants.statusBarHeight
+  }
+}
+
 const RootNavigator =  StackNavigator({
   DeckList: {
     screen: DeckList,
     navigationOptions: {
-      title: "Cards",
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
+      ...navigationOptions,
+      title: "Cards"
     }
   },
   CreateDeck: {
     screen: CreateDeck,
     navigationOptions: {
-      title: "Create a new Deck",
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
+      ...navigationOptions,
+      title: "Create a new Deck"
     }
   },
   IndividualDeck: {
     screen: IndividualDeck,
-    navigationOptions: {
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
-    }
+    navigationOptions
   },
   AddCard: {
     screen: AddCard,
-    navigationOptions: {
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
-    }
+    navigationOptions
   },
   Question: {
     screen: Question,
     navigationOptions: {
-      title: "Question",
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
+      ...navigationOptions,
+      title: "Question"
     }
   },
   Answer: {
     screen: Answer,
     navigationOptions: {
-      title: "Answer",
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
+      ...navigationOptions,
+      title: "Answer"
     }
   },
   Score: {
     screen: Score,
     navigationOptions: {
-      title: "Score",
-      headerTintColor: "white",
-      headerStyle: {
-        backgroundColor: "#3f51b5",
-        marginTop: Expo.Constants.statusBarHeight
-      }
+      ...navigationOptions,
+      title: "Score"
     }
   }
 })
