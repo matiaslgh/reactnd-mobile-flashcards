@@ -29,10 +29,10 @@ const Score = ({ corrects, incorrects, resetScore, navigation }) => {
         {`You have answered ${total} questions`}
       </Text>
       <Text style={[styles.text, styles.greenText]}>
-        {`${corrects} correct answers (${corrects * 100 / total}%)`}
+        {`${corrects} correct answers (${Math.round(corrects * 100 / total)}%)`}
       </Text>
       <Text style={[styles.text, styles.redText]}>
-        {`${incorrects} incorrect answers (${incorrects * 100 / total}%)`}
+        {`${incorrects} incorrect answers (${Math.round(incorrects * 100 / total)}%)`}
       </Text>
       <View style={styles.buttonContainer}>
         <Button
